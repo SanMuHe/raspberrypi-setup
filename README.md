@@ -70,7 +70,37 @@ Complete the prompts as they appear and restart Pi
 sudo reboot
 ```
 
-## Setup WiFi through command line
+## Setup WiFi via command line
+
+Plug your WiFi dongle into one of the USB ports of the Raspberry Pi and wait several minutes for the driver to be installed.
+Then type the following command to scan all available WiFi networks.
+```
+sudo iwlist wlan0 scan
+```
+Look out something like `ESSID:"testing"` and `IE: IEEE 802.11i/WPA2 Version 1`. 
+The former one is the name of the WiFi network and the later one is the authentication used.
+
+Open the `wpa-supplicant` configuration file:
+```
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+At the bottom of the file add the following:
+```
+network={
+    ssid="The_ESSID_from_earlier"
+    psk="Your_wifi_password"
+}
+```
+Save the file by pressing **Ctrl+X** then **Y**, then finally press **Enter**.
+
+At this point, `wpa-supplicant` will normally notice a change has occurred within a few seconds, 
+and it will try and connect to the network. If it does not, either manually restart the interface 
+with `sudo ifdown wlan0` and `sudo ifup wlan0`, or reboot your Raspberry Pi with `sudo reboot`. 
+
+You can verify if it has successfully connected using `ifconfig wlan0`. 
+If the `inet addr` field has an address beside it, the Pi has connected to the network. 
+If not, check your password and ESSID are correct. 
+
 ## Mount USB Drive
 ## Share USB Drive
 ## Secure Raspberry Pi
