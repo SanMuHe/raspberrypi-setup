@@ -41,6 +41,35 @@ sudo reboot
 ```
 
 ## Create a new user
+
+It is always a good idea to delete the default user name `pi` and create a new user name.
+After log into your Pi with PuTTY, type
+```
+groups
+```
+You will see a list output similar to the one below (Note: yours may be different to mine, so
+pay attention to your list)
+```
+pi adm dialout cdrom sudo audio video plugdev games users input netdev gpio i2c spi
+```
+Now you can create a new user by typing the following but remember to use your list of 
+groups (minus the first 'pi' item) and replace USERNAME with the username you want to create.
+
+```
+sudo useradd -m -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi USERNAME
+```
+
+Next set a password for the new user:
+
+```
+sudo passwd USERNAME
+```
+
+Complete the prompts as they appear and restart Pi
+```
+sudo reboot
+```
+
 ## Setup WiFi through command line
 ## Mount USB Drive
 ## Share USB Drive
