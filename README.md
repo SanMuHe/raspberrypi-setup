@@ -22,6 +22,24 @@ If the SSH connection is successful, you will be greeted with the login prompt o
 Since it is your first login, you just need to input `pi` as user name and `raspberry` as password.
 
 ## Raspi-config
+
+After you log into the Pi, type the following command to open the Raspberry Pi configuration UI.
+```
+sudo raspi-config
+```
+Make the following configurations:
+
+* Expand file system to ensure that all of the SD card storage is available to the OS.
+* Choose Boot Options as `B1 Console`.
+* Update your locale settings.
+* Set the Memory Split (Advanced > Memory Split) to `16` since we won't be running a desktop. 
+* Set your Hostname (Advanced > Hostname) if you don't like the default hostname `pi`.
+
+Commit the changes and reboot your Pi with
+```
+sudo reboot
+```
+
 ## Create a new user
 ## Setup WiFi through command line
 ## Mount USB Drive
