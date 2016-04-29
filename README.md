@@ -74,6 +74,12 @@ sudo reboot
 ## Mount USB Drive
 ## Share USB Drive
 ## Secure Raspberry Pi
+## References
+
+* [How to Setup a Raspberry Pi Without a Monitor or Keyboard](http://www.circuitbasics.com/raspberry-pi-basics-setup-without-monitor-keyboard-headless-mode/)
+* [How to set up a secure Raspberry Pi web server, mail server and Owncloud installation](https://www.pestmeester.nl/index.html)
+* [Setting WiFi up via the command line](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
+
 ## License
 
 &copy; 2016 SanMuHe
