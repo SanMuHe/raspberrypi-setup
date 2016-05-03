@@ -102,12 +102,51 @@ If the `inet addr` field has an address beside it, the Pi has connected to the n
 If not, check your password and ESSID are correct. 
 
 ## Mount USB Drive
+
+You first need to install ntfs-3g driver to support NTFS format disk, type the following in bash:
+```
+sudo apt-get install ntfs-3g
+```
+Then plug the USB Flash Disk into your Pi and type the following:
+```
+sudo fdisk -l
+```
+You should see something like below at the output of the command:
+```
+/dev/sda1       92448 125173759 125081312 59.7G  7 HPFS/NTFS/exFAT
+```
+The `/dev/sda1` corresponds to the USB Flash Disk you just plug in. 
+If you have more than one USB Flash Disk plugged in, you might see `/dev/sdb1` and etc.
+
+Before we can mount the drives, we need to create a directory to mount the drive:
+```
+sudo mkdir /mnt/usb
+```
+Now it is time to mount the USB Flask Drive:
+```
+sudo mount /dev/sda1 /mnt/usb
+```
+We also need to configure your Pi to automatically mount the UBS Flash Drive after every reboot
+```
+sudo cp /etc/fstab /etc/fstab.backup
+sudo nano /etc/fstab
+```
+Add the below line into the `fstab` file
+```
+/dev/sda1       /mnt/usb        ntfs-3g rw,default        0       0
+```
+Save the `fstab` file and reboot your Pi
+```
+sudo reboot
+```
+
 ## Share USB Drive
 ## Secure Raspberry Pi
 ## References
 
 * [How to Setup a Raspberry Pi Without a Monitor or Keyboard](http://www.circuitbasics.com/raspberry-pi-basics-setup-without-monitor-keyboard-headless-mode/)
 * [How to set up a secure Raspberry Pi web server, mail server and Owncloud installation](https://www.pestmeester.nl/index.html)
+* [How to Turn a Raspberry Pi into a Low-Power Network Storage Device](http://www.howtogeek.com/139433/how-to-turn-a-raspberry-pi-into-a-low-power-network-storage-device/)
 * [Setting WiFi up via the command line](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md)
 
 ## License
