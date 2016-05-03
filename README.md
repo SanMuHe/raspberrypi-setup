@@ -101,7 +101,7 @@ You can verify if it has successfully connected using `ifconfig wlan0`.
 If the `inet addr` field has an address beside it, the Pi has connected to the network. 
 If not, check your password and ESSID are correct. 
 
-## Mount USB Drive
+## Mount USB Flash Drive
 
 You first need to install ntfs-3g driver to support NTFS format disk, type the following in bash:
 ```
@@ -140,7 +140,56 @@ Save the `fstab` file and reboot your Pi
 sudo reboot
 ```
 
-## Share USB Drive
+## Share USB Flash Drive 
+
+We use a tool called `Samba` to make the USB Flash Drive plug into the Pi be accessible from other
+computers inside the same ethernet. 
+
+First is to install the tool:
+```
+sudo apt-get install samba samba-common-bin
+```
+
+Second is to configure Samba
+```
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.backup
+sudo nano /etc/samba/smb.conf
+```
+Type the below section into the configuration file
+```
+[pi-usb]
+    comment = USB Flash Dirve at my Raspberry Pi
+    path=/mnt/usb
+    valid users=@users
+    force group=users
+    browseable=yes
+    writeable=yes
+    only guest=no
+    create mask=0777
+    directory mask=0777
+    public=no
+```
+Save and close the file and restart the `Samba` daemons:
+```
+sudo /etc/init.d/samba restart
+```
+At this point we need to add in a user that can access the Pi’s samba shares. 
+We’re going to make an account with the username *backups* and the password *backups4ever*. 
+You can make your username and password whatever you wish. 
+To do so type the following commands:
+```
+sudo useradd backups -m -G users
+sudo passwd backups
+```
+You’ll be prompted to type in the password twice to confirm. 
+After confirming the password, it’s time to add “backups” as a legitimate Samba user. 
+Enter the following command:
+```
+sudo smbpasswd -a backups
+```
+Enter the password for the backup account when prompted. You can now access the USB Flash
+Drive on your Pi from any machine in your network with the username *backups* and the password *backups4ever*.
+
 ## Secure Raspberry Pi
 ## References
 
