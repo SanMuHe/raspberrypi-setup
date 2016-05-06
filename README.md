@@ -1,5 +1,15 @@
 # Setup Raspberry Pi Without Monitor or Keyboard from a Windows Machine
-This is my step by step guidance to set up a Raspberry Pi.
+## Table of Contents
+- [Install Raspbian](#install-raspbain)
+- [Connect to Raspberry Pi through SSH](#connect-to-raspberry-pi-through-ssh)
+- [Raspi-config](#raspi-config)
+- [Create a new user](#create-a-new-user)
+- [Setup WiFi via command line](#setup-wifi-via-command-line)
+- [Mount USB Flash Drive](#mount-usb-flash-drive)
+- [Share USB Flash Drive](#share-usb-flash-drive)
+- [Secure Raspberry Pi](#secure-raspberry-pi)
+- [References](#references)
+- [License](#license)
 
 ## Install Raspbian
 
