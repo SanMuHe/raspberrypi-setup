@@ -4,6 +4,7 @@
 
 - [Install Raspbian](#install-raspbain)
 - [Connect to Raspberry Pi through SSH](#connect-to-raspberry-pi-through-ssh)
+- [Update and Upgrade Raspberry Pi](#update-and-upgrade-raspberry-pi)
 - [Raspi-config](#raspi-config)
 - [Create a new user](#create-a-new-user)
 - [Setup WiFi via command line](#setup-wifi-via-command-line)
@@ -37,6 +38,17 @@ If you cannot find out the IP address from the router's administrator page, you 
 After you get the IP address, you can use [PuTTY](http://www.putty.org/) to connect to your Raspberry Pi through SSH.
 If the SSH connection is successful, you will be greeted with the login prompt of your Raspberry Pi.
 Since it is your first login, you just need to input `pi` as user name and `raspberry` as password.
+
+## Update and Upgrade Raspberry Pi
+
+It is better to update Raspbian after your first login to your Pi.
+
+```bash
+sudo apt-get update
+sudo apt-get dist-upgrade
+```
+
+If your SD card is running out of space, your can free up some space with `sudo apt-get clean`. It will delete the downloaded package files (.deb files) from `/var/cache/apt/archives`.
 
 ## Raspi-config
 
