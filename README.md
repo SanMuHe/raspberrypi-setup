@@ -93,6 +93,12 @@ Next set a password for the new user:
 sudo passwd USERNAME
 ```
 
+After this, it is better to delete the default `pi` user account
+
+```bash
+sudo deluser -remove-home pi
+```
+
 Complete the prompts as they appear and restart Pi
 
 ```bash
