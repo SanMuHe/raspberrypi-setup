@@ -19,22 +19,14 @@
 - Download Raspbian image from [here](http://www.raspberrypi.org/downloads/).
 - Download and install [SD Formatter 4.0](https://www.sdcard.org/downloads/formatter_4/). Then use it to format SD card.
 - Download and install [balenaEtcher](https://www.balena.io/etcher/). Then use it to write the Raspbian image into SD card.
+- [Enable SSH](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) on your Pi by placing a file name `ssh` (without any extension) onto the boot partition of the SD card.
 - Insert the SD card into Raspberry Pi, plug in the power cord and network cable, and then power on the Pi.
 
 ## Connect to Raspberry Pi through SSH
 
-To setup the Raspberry Pi without a monitor or keyboard, you need to connect to the Pi through SSH.
-To do that, you need to first enable SSH on your Pi.
-
-- `sudo raspi-config`
-- Select `Interfacing Options`
-- Navigate to and select `SSH`
-- Choose `Yes`
-- Select `OK`
-- Choose `Finish`
-
-Second, you need to know the IP address of the Pi. You can find out the IP address from your router's administrator page (usually, it can be accessed by browsing http://192.0.0.1 from any machine inside your home network).
+First, you need to know the IP address of the Pi. You can find out the IP address from your router's administrator page (usually, it can be accessed by browsing http://192.0.0.1 from any machine inside your home network).
 If you cannot find out the IP address from the router's administrator page, you can use [Advanced IP Scanner](http://www.advanced-ip-scanner.com/) to get the IP address.
+
 After you get the IP address, you can use [PuTTY](http://www.putty.org/) to connect to your Raspberry Pi through SSH.
 If the SSH connection is successful, you will be greeted with the login prompt of your Raspberry Pi.
 Since it is your first login, you just need to input `pi` as user name and `raspberry` as password.
