@@ -36,8 +36,8 @@ Since it is your first login, you just need to input `pi` as user name and `rasp
 It is better to update Raspbian after your first login to your Pi.
 
 ```bash
-sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt update
+sudo apt full-upgrade
 ```
 
 If your SD card is running out of space, your can free up some space with `sudo apt-get clean`. It will delete the downloaded package files (.deb files) from `/var/cache/apt/archives`.
