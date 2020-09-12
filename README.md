@@ -171,7 +171,7 @@ sudo useradd backups -m -G users
 sudo passwd backups
 ```
 
-You’ll be prompted to type in the password twice to confirm. 
+You’ll be prompted to type in the password twice to confirm.
 After confirming the password, it’s time to add “backups” as a legitimate Samba user.
 Enter the following command:
 
@@ -182,9 +182,9 @@ sudo smbpasswd -a backups
 Enter the password for the backup account when prompted. You can now access the USB Flash
 Drive on your Pi from any machine in your network with the username *backups* and the password *backups4ever*.
 
-## Appendix - Manually Creating a Firewall through iptables
+## Appendix - Creating a firewall by manually configuring `iptables` rules
 
-You also need to set up a firewall to limit and block unwanted inbound traffic to your Pi.
+If you don't want to use `ufw` as suggested in [Secure Raspberry Pi](#secure-raspberry-pi), you can set up your firewall by manually configuring the `iptables` rules.
 
 Check your Pi's default firewall rules by entering the following command:
 
