@@ -5,12 +5,10 @@
 - [Install Raspbian](#install-raspbain)
 - [Connect to Raspberry Pi through SSH](#connect-to-raspberry-pi-through-ssh)
 - [Update and Upgrade Raspberry Pi](#update-and-upgrade-raspberry-pi)
-- [Raspi-config](#raspi-config)
-- [Create a new user](#create-a-new-user)
-- [Setup WiFi via command line](#setup-wifi-via-command-line)
+- [Configure Raspberry Pi](#configure-raspberry-pi)
+- [Secure Raspberry Pi](#secure-raspberry-pi)
 - [Mount USB Flash Drive](#mount-usb-flash-drive)
 - [Share USB Flash Drive](#share-usb-flash-drive)
-- [Secure Raspberry Pi](#secure-raspberry-pi)
 - [References](#references)
 - [License](#license)
 
@@ -43,7 +41,7 @@ Per [here](https://www.raspberrypi.org/documentation/raspbian/updating.md) sugge
 
 If your SD card is running out of space, your can free up some space with `sudo apt-get clean`. It will delete the downloaded package files (.deb files) from `/var/cache/apt/archives`.
 
-## Raspi-config
+## Configure Raspberry Pi
 
 After you log into the Pi, type the following command to open the Raspberry Pi configuration UI.
 
@@ -65,82 +63,9 @@ Commit the changes and reboot your Pi with
 sudo reboot
 ```
 
-## Create a new user
+## Secure Raspberry Pi
 
-It is always a good idea to delete the default user name `pi` and create a new user name.
-After log into your Pi with PuTTY, type
-
-```bash
-groups
-```
-
-You will see a list output similar to the one below (Note: yours may be different to mine, so
-pay attention to your list)
-
-```bash
-pi adm dialout cdrom sudo audio video plugdev games users input netdev gpio i2c spi
-```
-
-Now you can create a new user by typing the following but remember to use your list of
-groups (minus the first 'pi' item) and replace USERNAME with the username you want to create.
-
-```bash
-sudo useradd -m -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi USERNAME
-```
-
-Next set a password for the new user:
-
-```bash
-sudo passwd USERNAME
-```
-
-After this, it is better to delete the default `pi` user account
-
-```bash
-sudo deluser -remove-home pi
-```
-
-Complete the prompts as they appear and restart Pi
-
-```bash
-sudo reboot
-```
-
-## Setup WiFi via command line
-
-Plug your WiFi dongle into one of the USB ports of the Raspberry Pi and wait several minutes for the driver to be installed.
-Then type the following command to scan all available WiFi networks.
-
-```bash
-sudo iwlist wlan0 scan
-```
-
-Look out something like `ESSID:"testing"` and `IE: IEEE 802.11i/WPA2 Version 1`.
-The former one is the name of the WiFi network and the later one is the authentication used.
-
-Open the `wpa-supplicant` configuration file:
-
-```bash
-sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
-```
-
-At the bottom of the file add the following:
-
-```bash
-network={
-    ssid="The_ESSID_from_earlier"
-    psk="Your_wifi_password"
-}
-```
-
-Save the file by pressing **Ctrl+X** then **Y**, then finally press **Enter**.
-
-At this point, `wpa-supplicant` will normally notice a change has occurred within a few seconds, and it will try and connect to the network.
-If it does not, either manually restart the interface with `sudo ifdown wlan0` and `sudo ifup wlan0`, or reboot your Raspberry Pi with `sudo reboot`.
-
-You can verify if it has successfully connected using `ifconfig wlan0`.
-If the `inet addr` field has an address beside it, the Pi has connected to the network.
-If not, check your password and ESSID are correct.
+Follow [this](https://www.raspberrypi.org/documentation/configuration/security.md) article from raspberrypi.org to secure your Raspberry Pi.
 
 ## Mount USB Flash Drive
 
@@ -257,53 +182,7 @@ sudo smbpasswd -a backups
 Enter the password for the backup account when prompted. You can now access the USB Flash
 Drive on your Pi from any machine in your network with the username *backups* and the password *backups4ever*.
 
-## Secure Raspberry Pi
-
-We need a few setups to improve the security of your Pi.
-
-### Key-pair authentication
-
-By default, password authentication is used to login to your Pi via SSH.
-A more secure way is to use key-pair authentication.
-Just follow instructions in the
-[Use Public Key Authentication with SSH Guide](https://www.linode.com/docs/security/use-public-key-authentication-with-ssh#windows-operating-system)
-to set up PuTTY to use key-pair authentication to login to your Pi.
-
-### Disabling SSH Password Authentication and Root Login
-
-Now it's time to make some changes to the default SSH configuration.
-First, you'll disable password authentication to require all users connecting via SSH to use key authentication.
-Next, you'll disable root login to prevent the root user from logging in via SSH.
-These steps are optional, but are strongly recommended.
-
-Open and edit the SSH configuration file:
-
-```bash
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
-sudo nano /etc/ssh/sshd_config
-```
-
-Change the PasswordAuthentication setting to "no":
-
-```bash
-PasswordAuthentication no
-```
-
-Change the PermitRootLogin setting to no:
-
-```bash
-PermitRootLogin no
-```
-
-Save the changes to the SSH configuration file and exit.
-
-Restart the SSH service to load the new configuration. Enter the following command:
-
-```bash
-sudo service ssh restart
-```
-
-### Creating a Firewall
+## Appendix - Manually Creating a Firewall through iptables
 
 You also need to set up a firewall to limit and block unwanted inbound traffic to your Pi.
 
@@ -442,25 +321,8 @@ Set the script's permissions by entering the following command:
 sudo chmod +x /etc/network/if-pre-up.d/firewall
 ```
 
-Now, your firewall rules are in place and protecting your Pi. 
+Now, your firewall rules are in place and protecting your Pi.
 Remember, you'll need to edit the firewall rules later if you install other software or services.
-
-### Installing and Configuring Fail2Ban
-
-Fail2Ban is an application that prevents dictionary attacks on your server.
-When Fail2Ban detects multiple failed login attempts from the same IP address, it creates temporary firewall rules that block traffic from the attacker's IP address.
-Attempted logins can be monitored on a variety of protocols, including SSH, HTTP, and SMTP.
-By default, Fail2Ban monitors SSH only.
-
-Type the following to install Fail2Ban on your Pi:
-
-```bash
-sudo apt-get install fail2ban
-```
-
-Fail2Ban is now installed and running on your Pi. 
-It will monitor your log files for failed login attempts.
-After an IP address has exceeded the maximum number of authentication attempts, it will be blocked at the network level and the event will be logged in `/var/log/fail2ban.log`.
 
 ## References
 
