@@ -39,6 +39,8 @@ sudo apt update
 sudo apt full-upgrade
 ```
 
+Per [here](https://www.raspberrypi.org/documentation/raspbian/updating.md) suggested, that `full-upgrade` is used in preference to a simple `upgrade`, as it also picks up any dependency changes that may have been made.
+
 If your SD card is running out of space, your can free up some space with `sudo apt-get clean`. It will delete the downloaded package files (.deb files) from `/var/cache/apt/archives`.
 
 ## Raspi-config
