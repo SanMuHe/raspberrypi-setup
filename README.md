@@ -16,10 +16,9 @@
 
 ## Install Raspbian
 
-- Download Raspbian image from [here](http://www.raspberrypi.org/downloads/).
-- Download and install [SD Formatter 4.0](https://www.sdcard.org/downloads/formatter_4/). Then use it to format SD card.
-- Download and install [balenaEtcher](https://www.balena.io/etcher/). Then use it to write the Raspbian image into SD card.
-- [Enable SSH](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) on your Pi by placing a file name `ssh` (without any extension) onto the boot partition of the SD card.
+- Install Raspbian with [Raspberry Pi Imager](https://www.raspberrypi.org/documentation/installation/installing-images/).
+- [Set up wireless networking headless](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
+- [Enable SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md) on your Pi by placing a file name `ssh` (without any extension) onto the boot partition of the SD card.
 - Insert the SD card into Raspberry Pi, plug in the power cord and network cable, and then power on the Pi.
 
 ## Connect to Raspberry Pi through SSH
